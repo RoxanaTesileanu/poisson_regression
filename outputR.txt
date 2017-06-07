@@ -1,0 +1,107 @@
+R version 3.4.0 (2017-04-21) -- "You Stupid Darkness"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Workspace loaded from ~/Private/poisson_regression/.RData]
+
+> mydata <- read.csv("/home/roxana/poisson_data.csv", header=TRUE)
+Warning message:
+R graphics engine version 12 is not supported by this version of RStudio. The Plots tab will be disabled until a newer version of RStudio is installed. 
+> attach(mydata)
+> names(mydata)
+[1] "panta"   "vizuini"
+> 
+> plot(panta, vizuini)
+> model1 <- glm(vizuini ~ panta , data=mydata, family=poisson())
+> summary(model1)
+
+Call:
+glm(formula = vizuini ~ panta, family = poisson(), data = mydata)
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-13.5513   -2.3950   -0.7613    0.4199    6.9865  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  4.65870    0.06195   75.20   <2e-16 ***
+panta       -0.23143    0.01234  -18.76   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 930.97  on 18  degrees of freedom
+Residual deviance: 339.86  on 17  degrees of freedom
+AIC: 415.79
+
+Number of Fisher Scoring iterations: 5
+
+> deviance(model1)/df.residual(model1)
+[1] 19.99173
+> model2 <- glm(vizuini ~panta, data = mydata, family= quasipoisson())
+> summary(model2)
+
+Call:
+glm(formula = vizuini ~ panta, family = quasipoisson(), data = mydata)
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-13.5513   -2.3950   -0.7613    0.4199    6.9865  
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  4.65870    0.24933  18.685 9.07e-13 ***
+panta       -0.23143    0.04965  -4.661 0.000224 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for quasipoisson family taken to be 16.1971)
+
+    Null deviance: 930.97  on 18  degrees of freedom
+Residual deviance: 339.86  on 17  degrees of freedom
+AIC: NA
+
+Number of Fisher Scoring iterations: 5
+
+> 
+> library(robust)
+Loading required package: fit.models
+> model3 <- glmRob(vizuini~panta, family = poisson(), data= mydata)
+> summary(model3)
+
+Call: glmRob(formula = vizuini ~ panta, family = poisson(), data = mydata)
+Deviance Residuals:
+       Min         1Q     Median         3Q        Max 
+-1.181e+67  1.196e+01  2.148e+01  6.445e+01  1.023e+02 
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)
+(Intercept)  -4907.1  0.6183717   -7936        0
+panta          306.8  0.0002903 1056655        0
+
+(Dispersion Parameter for poisson family taken to be 1 )
+
+    Null Deviance: 3213 on 18 degrees of freedom
+
+Residual Deviance: NaN on 17 degrees of freedom
+
+Number of Iterations: 50 
+
+Correlation of Coefficients:
+      (Intercept)
+panta 34078      
