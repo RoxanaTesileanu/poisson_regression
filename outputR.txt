@@ -1,3 +1,5 @@
+## 07.06.2017
+
 R version 3.4.0 (2017-04-21) -- "You Stupid Darkness"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
@@ -105,3 +107,15 @@ Number of Iterations: 50
 Correlation of Coefficients:
       (Intercept)
 panta 34078      
+
+#### 08.06.2017
+
+> summary(mydata)
+     panta           vizuini      
+ Min.   : 0.000   Min.   :  1.00  
+ 1st Qu.: 4.500   1st Qu.:  1.50  
+ Median : 9.000   Median :  3.00  
+ Mean   : 9.947   Mean   : 26.11  
+ 3rd Qu.:15.500   3rd Qu.: 31.00  
+ Max.   :23.000   Max.   :131.00  
+
