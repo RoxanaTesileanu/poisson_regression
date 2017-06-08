@@ -34,6 +34,13 @@ library("MASS")
 model4 <- glm.nb(vizuini~panta)
 summary(model4)
 plot(model4)
+plot(predict(model4, type="response"), residuals(model4, type="deviance"))
+
+# both models, the quasipoisson and negative binomial, behave more or less the same in the diagnosis plots.
+# the glm.nb includes a second parameter theta - the clumping parameter (estimated from data to be 1.65269), and uses the log link 
+# the glm.nb is another way to deal with overdispersion
+
+coef(model4) # Intercept  4.7412066  panta -0.2620124 
 
 
 # 2) Plotting the results
@@ -62,6 +69,13 @@ points(mydata)
 plot(newdf)
 points(log(vizuini))
 
+#plot 4 (the negative binomial)
+
+newLogMuBn <-  4.7412066  -0.2620124*newXs
+newdfBn <- data.frame(newXs, exp(newLogMuBn))
+plot(newdfBn)
+points(mydata)
+
 # 3) Conclusions
 
 
@@ -70,4 +84,4 @@ points(log(vizuini))
 # R I Kabacoff, 2015: R in action - Data analysis and graphics with R,  second edition, Manning
 # M J Crawley, 2013: The R book, second edition, Wiley 
 # G P Quinn, M J Keough, 2002: Experimental design and data analysis for biologists, CUP
-
+# https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/glm.nb.html
