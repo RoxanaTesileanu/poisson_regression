@@ -29,6 +29,10 @@ library(robust)
 model3 <- glmRob(vizuini~panta, family = poisson(), data= mydata)
 summary(model3)
 # the robust method doesn't deal with the overdispersion (dispersion parameter set to 1)
+# method = "cubif"for the conditionally unbiased bounded influence estimator
+plot(model3) # has very good diagnosis plots! 
+coefficients(model3) # Intercept -4907.1189  panta  306.7826 
+
 
 library("MASS")
 model4 <- glm.nb(vizuini~panta)
@@ -95,7 +99,15 @@ newdfBn <- data.frame(newXs, exp(newLogMuBn))
 plot(newdfBn)
 points(mydata)
 
+# plot 5 (the robust poisson regression)
+coefficients(model3) # Intercept -4907.1189  panta  306.7826
+newLogMuRob <- -4907.1189 + 306.7826*newXs
+newdfRob <- data.frame(newXs, exp(newLogMuRob))
+plot(newdfRob)
+points(mydata)
+
 # 3) Conclusions
+
 
 
 
