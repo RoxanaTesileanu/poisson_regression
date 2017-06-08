@@ -119,3 +119,47 @@ panta 34078
  3rd Qu.:15.500   3rd Qu.: 31.00  
  Max.   :23.000   Max.   :131.00  
 
+> library("MASS", lib.loc="/usr/lib/R/library")
+> model4 <- glm.nb(vizuini~panta)
+> summary(model4)
+
+Call:
+glm.nb(formula = vizuini ~ panta, init.theta = 1.652699294, link = log)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-2.8443  -0.7458  -0.1528   0.5779   0.9430  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  4.74121    0.35242  13.453  < 2e-16 ***
+panta       -0.26201    0.03771  -6.947 3.72e-12 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for Negative Binomial(1.6527) family taken to be 1)
+
+    Null deviance: 73.271  on 18  degrees of freedom
+Residual deviance: 17.956  on 17  degrees of freedom
+AIC: 131.65
+
+Number of Fisher Scoring iterations: 1
+
+
+              Theta:  1.653 
+          Std. Err.:  0.591 
+
+ 2 x log-likelihood:  -125.653 
+ 
+ > coef(model4)
+ > exp(4.7412066)
+[1] 114.5724
+> exp(-0.2620124)
+[1] 0.7695015
+> coef(model2)
+(Intercept)       panta 
+  4.6587012  -0.2314341 
+> exp(4.6587012)
+[1] 105.499
+> exp(-0.2314341) 
+[1] 0.793395

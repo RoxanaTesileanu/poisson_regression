@@ -36,11 +36,30 @@ summary(model4)
 plot(model4)
 plot(predict(model4, type="response"), residuals(model4, type="deviance"))
 
-# both models, the quasipoisson and negative binomial, behave more or less the same in the diagnosis plots.
 # the glm.nb includes a second parameter theta - the clumping parameter (estimated from data to be 1.65269), and uses the log link 
 # the glm.nb is another way to deal with overdispersion
 
+# both models, the quasipoisson and negative binomial, behave more or less the same in the diagnosis plots. 
+# the plots showing the predicted values and the observed values along the slope range for both models (nb and quasipoisson) indicate 
+# a better fit for the nb model
+
 coef(model4) # Intercept  4.7412066  panta -0.2620124 
+exp(4.7412066) # 114.5724
+exp( 4.7412066  -0.2620124*seq(0,22,1))
+exp(0.2620124)
+114.5723613 - 88.1636018
+88.1636018 - 67.8420222 
+# Interpretation coeff. model4: for 0 slope we have about 114 beaver dams (the intercept in this case brings an important amount of information)
+# The linear model indicates that for each unit increase in terrain slope we have a decrease in the log no. of dams of about 0.2620124.
+# Let's test that to be sure:
+log(114.5724)-0.2620124 # 4.479195 which is log(88.1636018), the no. of dams at 1 degree of terrain slope
+log(88.1636018) - 0.2620124 # 4.217182 which is log(67.8420222), the no. of dams at 2 degrees of terrain slope
+log(67.8420222) 
+
+coef(model2) # 4.6587012  -0.2314341 
+exp(4.6587012) # 105.499
+exp(-0.2314341) # 0.793395
+
 
 
 # 2) Plotting the results
