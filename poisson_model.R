@@ -32,6 +32,10 @@ summary(model3)
 # method = "cubif"for the conditionally unbiased bounded influence estimator
 plot(model3) # has very good diagnosis plots! 
 coefficients(model3) # Intercept -4907.1189  panta  306.7826 
+# ok, the plot 5 shows that the robust model is not plausible for this kind of data.
+# in our case the overdispersion is caused mainly due to the inaccuracies produced by a low GIS resolution in the available DEM (pixel width 30m) 
+# and also by the phenomenon known as "state dependence" (Kabakoff p. 315), i.e. 
+
 
 
 library("MASS")
