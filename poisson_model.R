@@ -1,5 +1,5 @@
 # POISSON REGRESSION - INVESTIGATING THE RELATIONSHIP BETWEEN THE TERRAIN SLOPE AND THE OBSERVED COUNT OF BEAVER DAMS ALONG A SLOPE RANGE  
-
+# Roxana Tesileanu (INCDS-Romania)
 
 # 1) Regression analysis
 
@@ -99,8 +99,9 @@ points(mydata)
 
 
 
+
 # 4) References: 
-# 1. KabacoffR I, 2015: R in action - Data analysis and graphics with R,  Second edition, Manning
+# 1. Kabacoff R I, 2015: R in action - Data analysis and graphics with R,  Second edition, Manning
 # 2. Crawley M J, 2013: The R book, Second edition, Wiley 
 # 3. Quinn G P, Keough M J, 2002: Experimental design and data analysis for biologists, CUP
 # 4. R Core Team, 2017, R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna,

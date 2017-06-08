@@ -1,5 +1,5 @@
 > # POISSON REGRESSION - INVESTIGATING THE RELATIONSHIP BETWEEN THE TERRAIN SLOPE AND THE OBSERVED COUNT OF BEAVER DAMS ALONG A SLOPE RANGE  
-> 
+> # Roxana Tesileanu (INCDS - Romania)
 > 
 > # 1) Regression analysis
 > 
@@ -253,8 +253,13 @@ RStudioGD
 > 
 > 
 > 
-> # 4) References: 
-> # R I Kabacoff, 2015: R in action - Data analysis and graphics with R,  second edition, Manning
-> # M J Crawley, 2013: The R book, second edition, Wiley 
-> # G P Quinn, M J Keough, 2002: Experimental design and data analysis for biologists, CUP
-> # https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/glm.nb.html
+# 4) References: 
+# 1. Kabacoff R I, 2015: R in action - Data analysis and graphics with R,  Second edition, Manning
+# 2. Crawley M J, 2013: The R book, Second edition, Wiley 
+# 3. Quinn G P, Keough M J, 2002: Experimental design and data analysis for biologists, CUP
+# 4. R Core Team, 2017, R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna,
+#    Austria. URL https://www.R-project.org/
+# 5. https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/glm.nb.html (08.06.2017)
+# 6. Venables, W N, Ripley B D, 2002: Modern Applied Statistics with S, Fourth edition, Springer
+# 7. Wang J, Zamar R, Marazzi A, Yohai V, Salibian-Barrera M, Maronna R, Zivot E, Rocke D, Martin D, Maechler M, Konis K, (2017): 
+#    robust: Port of the S+ "Robust Library". R package version 0.4-18, https://CRAN.R-project.org/package=robust
