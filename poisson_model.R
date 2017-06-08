@@ -30,6 +30,11 @@ model3 <- glmRob(vizuini~panta, family = poisson(), data= mydata)
 summary(model3)
 # the robust method doesn't deal with the overdispersion (dispersion parameter set to 1)
 
+library("MASS")
+model4 <- glm.nb(vizuini~panta)
+summary(model4)
+plot(model4)
+
 
 # 2) Plotting the results
 
@@ -52,7 +57,14 @@ newdf2 <- data.frame(newXs, exp(newLogMu))
 plot(newdf2)
 points(mydata)
 
+#plot 3
+
+plot(newdf)
+points(log(vizuini))
+
 # 3) Conclusions
+
+
 
 # 4) References: 
 # R I Kabacoff, 2015: R in action - Data analysis and graphics with R,  second edition, Manning
