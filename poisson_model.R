@@ -58,8 +58,8 @@ log(67.8420222)
 
 coef(model2) # 4.6587012  -0.2314341 
 exp(4.6587012) # 105.499
-exp(-0.2314341) # 0.793395
-
+# Interpretation coeff. model2: for 0 slope we have 105.499 beaver dams.
+# For each unit increase in terrain slope we have a decrease in the log no. of dams of about 0.2314341.
 
 
 # 2) Plotting the results

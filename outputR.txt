@@ -151,15 +151,32 @@ Number of Fisher Scoring iterations: 1
 
  2 x log-likelihood:  -125.653 
  
- > coef(model4)
- > exp(4.7412066)
+> coef(model4) # Intercept  4.7412066  panta -0.2620124 
+(Intercept)       panta 
+  4.7412066  -0.2620124 
+> exp(4.7412066) # 114.5724
 [1] 114.5724
-> exp(-0.2620124)
-[1] 0.7695015
-> coef(model2)
+> exp( 4.7412066  -0.2620124*seq(0,22,1))
+ [1] 114.5723613  88.1636018  67.8420222  52.2045366  40.1714683  30.9120044  23.7868332  18.3040034  14.0849577  10.8383958   8.3401617   6.4177668
+[13]   4.9384810   3.8001685   2.9242353   2.2502034   1.7315348   1.3324186   1.0252981   0.7889684   0.6071124   0.4671739   0.3594910
+> exp(0.2620124)
+[1] 1.299543
+> 114.5723613 - 88.1636018
+[1] 26.40876
+> 88.1636018 - 67.8420222 
+[1] 20.32158
+> # Interpretation coeff. model4: for 0 slope we have about 114 beaver dams (the intercept in this case brings an important amount of information)
+> # The linear model indicates that for each unit increase in terrain slope we have a decrease in the log no. of dams of about 0.2620124.
+> # Let's test that to be sure:
+> log(114.5724)-0.2620124 # 4.479195 which is log(88.1636018), the no. of dams at 1 degree of terrain slope
+[1] 4.479195
+> log(88.1636018) - 0.2620124 # 4.217182 which is log(67.8420222), the no. of dams at 2 degrees of terrain slope
+[1] 4.217182
+> log(67.8420222) 
+[1] 4.217182
+> 
+> coef(model2) # 4.6587012  -0.2314341 
 (Intercept)       panta 
   4.6587012  -0.2314341 
-> exp(4.6587012)
+> exp(4.6587012) # 105.499
 [1] 105.499
-> exp(-0.2314341) 
-[1] 0.793395
