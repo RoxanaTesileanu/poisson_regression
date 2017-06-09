@@ -146,13 +146,17 @@ plot(newXs, exp(-1.5478736 -0.2314343*newXs))
 points(probDamAlongTerSlope)
 
 # maybe a Bayesian analysis would be good with a conjugate Poisson-Gamma model given the inputs of the technical stuff
-# on the beaver preference for 0 to 1 terraib slope.
+# on the beaver preference for 0 to 1 terrain slope and the results of the logistic regression modelling the occurrence of
+# beaver dams at water velocities close to 0 (Tesileanu 2016).
+
+
+# 4) Bayesian analysis for Poisson count data and conjugate Gamma prior (with negative binomial posterior density)
 
 
 
 
 
-# 4) Conclusions
+# 5) Conclusions
 
 
 
@@ -165,7 +169,9 @@ points(probDamAlongTerSlope)
 # 4. R Core Team, 2017, R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna,
 #    Austria. URL https://www.R-project.org/
 # 5. https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/glm.nb.html (08.06.2017)
-# 6. Venables, W N, Ripley B D, 2002: Modern Applied Statistics with S, Fourth edition, Springer
-# 7. Wang J, Zamar R, Marazzi A, Yohai V, Salibian-Barrera M, Maronna R, Zivot E, Rocke D, Martin D, Maechler M, Konis K, (2017): 
+# 6. Tesileanu R, 2016: The occurrence of beaver dams in relation to features of the water stream and vegetation characterizing the area,
+#    Technical Report INCDS 
+# 7. Venables, W N, Ripley B D, 2002: Modern Applied Statistics with S, Fourth edition, Springer
+# 8. Wang J, Zamar R, Marazzi A, Yohai V, Salibian-Barrera M, Maronna R, Zivot E, Rocke D, Martin D, Maechler M, Konis K, (2017): 
 #    robust: Port of the S+ "Robust Library". R package version 0.4-18, https://CRAN.R-project.org/package=robust
 
