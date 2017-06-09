@@ -115,7 +115,34 @@ points(mydata)
 
 # 3) Risk analysis 
 
+# using the negative binomial model and then the quasipoisson model to turn the results into probabilities of occurence along the regression curve
 
+sumDams = sum(vizuini) 
+sumDams
+
+vizuini
+
+probDamAlongTerSlope = vizuini/sumDams
+probDamAlongTerSlope 
+plot(probDamAlongTerSlope)
+coef(model4)
+
+# now, similar to model4 (the negative binomial model), log(probDamAlongTerSlope) = Intercept - beta1(vizuini)
+# let's rerun the model with probDamAlongTerSlope to see the coefficients:
+
+
+warnings(model5) # doesn't like lists as arguments...let's build a data frame
+dfModel5 = data.frame(probDamAlongTerSlope, panta)
+dfModel5
+model5 = glm.nb (dfModel5[,1] ~ dfModel5[,2]
+# crazy errors right now (not very typical to R) 
+dfModel5[,1]
+                
+newXs 
+newLogProb =  4.7412066 -0.2620124*(newXs)
+newLogProb
+originalScaleProb = exp(newLogProb)
+originalScaleProb
 
 
 # 4) Conclusions
