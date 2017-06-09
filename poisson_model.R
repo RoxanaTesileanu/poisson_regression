@@ -145,6 +145,11 @@ coef(model5) # Intercept -1.5478736      mydataProb$panta -0.2314343
 plot(newXs, exp(-1.5478736 -0.2314343*newXs))
 points(probDamAlongTerSlope)
 
+# maybe a Bayesian analysis would be good with a conjugate Poisson-Gamma model given the inputs of the technical stuff
+# on the beaver preference for 0 to 1 terraib slope.
+
+
+
 
 
 # 4) Conclusions
