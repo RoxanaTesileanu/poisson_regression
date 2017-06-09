@@ -112,13 +112,19 @@ newdfRob <- data.frame(newXs, exp(newLogMuRob))
 plot(newdfRob)
 points(mydata)
 
-# 3) Conclusions
+
+# 3) Risk analysis 
+
+
+
+
+# 4) Conclusions
 
 
 
 
 
-# 4) References: 
+# 5) References: 
 # 1. Kabacoff R I, 2015: R in action - Data analysis and graphics with R,  Second edition, Manning
 # 2. Crawley M J, 2013: The R book, Second edition, Wiley 
 # 3. Quinn G P, Keough M J, 2002: Experimental design and data analysis for biologists, CUP
