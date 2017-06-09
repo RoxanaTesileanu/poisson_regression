@@ -130,19 +130,14 @@ coef(model4)
 # now, similar to model4 (the negative binomial model), log(probDamAlongTerSlope) = Intercept - beta1(vizuini)
 # let's rerun the model with probDamAlongTerSlope to see the coefficients:
 
+mydataProb = read.table("/home/roxana/poisson_regression/Poisson_data_prob.txt", header=TRUE)
+names(mydataProb)
 
+model5 = glm.nb(mydataProb$probDamAlongTerSlope ~ mydataProb$panta)
 warnings(model5) # doesn't like lists as arguments...let's build a data frame
-dfModel5 = data.frame(probDamAlongTerSlope, panta)
-dfModel5
-model5 = glm.nb (dfModel5[,1] ~ dfModel5[,2]
-# crazy errors right now (not very typical to R) 
-dfModel5[,1]
-                
-newXs 
-newLogProb =  4.7412066 -0.2620124*(newXs)
-newLogProb
-originalScaleProb = exp(newLogProb)
-originalScaleProb
+# ok I guess the problem is I want a probability response which is continuous and continuous responses for probabilities are impossible
+# because if they have to sum up to 1 it will tear the individual probabilities towards 0. 
+
 
 
 # 4) Conclusions
