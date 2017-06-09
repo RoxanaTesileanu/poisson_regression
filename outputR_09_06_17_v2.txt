@@ -1,0 +1,381 @@
+
+R version 3.4.0 (2017-04-21) -- "You Stupid Darkness"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Workspace loaded from ~/poisson_regression/.RData]
+
+> # POISSON REGRESSION - INVESTIGATING THE RELATIONSHIP BETWEEN THE TERRAIN SLOPE AND THE OBSERVED COUNT OF BEAVER DAMS ALONG A SLOPE RANGE  
+> # Roxana Tesileanu (INCDS-Romania)
+> 
+> # 1) Regression analysis
+> 
+> mydata <- read.csv("/home/roxana/poisson_data.csv", header=TRUE)
+> attach(mydata)
+> names(mydata)
+[1] "panta"   "vizuini"
+> summary(mydata)
+     panta           vizuini      
+ Min.   : 0.000   Min.   :  1.00  
+ 1st Qu.: 4.500   1st Qu.:  1.50  
+ Median : 9.000   Median :  3.00  
+ Mean   : 9.947   Mean   : 26.11  
+ 3rd Qu.:15.500   3rd Qu.: 31.00  
+ Max.   :23.000   Max.   :131.00  
+> plot(panta, vizuini)
+> model1 <- glm(vizuini ~ panta , data=mydata, family=poisson()) # Poisson as a pmf with one parameter: the mean (dispersion parameter set to 1)
+> summary(model1)
+
+Call:
+glm(formula = vizuini ~ panta, family = poisson(), data = mydata)
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-13.5513   -2.3950   -0.7613    0.4199    6.9865  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  4.65870    0.06195   75.20   <2e-16 ***
+panta       -0.23143    0.01234  -18.76   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 930.97  on 18  degrees of freedom
+Residual deviance: 339.86  on 17  degrees of freedom
+AIC: 415.79
+
+Number of Fisher Scoring iterations: 5
+
+> deviance(model1)/df.residual(model1) # indicates overdispersion in count data: variance greater than the mean 
+[1] 19.99173
+> model2 <- glm(vizuini ~panta, data = mydata, family= quasipoisson()) 
+> # using the quasipoisson distribution as underlying distribution for the response variable
+> # the dispersion parameter is estimated from the data and not set to 1
+> 
+> summary(model2)
+
+Call:
+glm(formula = vizuini ~ panta, family = quasipoisson(), data = mydata)
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-13.5513   -2.3950   -0.7613    0.4199    6.9865  
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  4.65870    0.24933  18.685 9.07e-13 ***
+panta       -0.23143    0.04965  -4.661 0.000224 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for quasipoisson family taken to be 16.1971)
+
+    Null deviance: 930.97  on 18  degrees of freedom
+Residual deviance: 339.86  on 17  degrees of freedom
+AIC: NA
+
+Number of Fisher Scoring iterations: 5
+
+> plot(model2)
+Hit <Return> to see next plot: 
+Hit <Return> to see next plot: plot(predict(model2, type="response"), residuals(model2, type="deviance"))
+Hit <Return> to see next plot: plot(hatvalues(model2))
+Hit <Return> to see next plot: plot(rstudent(model2))
+> plot(cooks.distance(model2))
+> 
+> 
+> 
+> library(robust)
+Loading required package: fit.models
+> model3 <- glmRob(vizuini~panta, family = poisson(), data= mydata)
+> summary(model3)
+
+Call: glmRob(formula = vizuini ~ panta, family = poisson(), data = mydata)
+Deviance Residuals:
+       Min         1Q     Median         3Q        Max 
+-1.181e+67  1.196e+01  2.148e+01  6.445e+01  1.023e+02 
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)
+(Intercept)  -4907.1  0.6183717   -7936        0
+panta          306.8  0.0002903 1056655        0
+
+(Dispersion Parameter for poisson family taken to be 1 )
+
+    Null Deviance: 3213 on 18 degrees of freedom
+
+Residual Deviance: NaN on 17 degrees of freedom
+
+Number of Iterations: 50 
+
+Correlation of Coefficients:
+      (Intercept)
+panta 34078      
+> # the robust method doesn't deal with the overdispersion (dispersion parameter set to 1)
+> # method = "cubif"for the conditionally unbiased bounded influence estimator
+> plot(model3) # has very good diagnosis plots! 
+Hit <Return> to see next plot: coefficients(model3) # Intercept -4907.1189  panta  306.7826 
+Hit <Return> to see next plot: # ok, the plot 5 shows that the robust model is not plausible for this kind of data.
+Hit <Return> to see next plot: # in our case the overdispersion is caused mainly due to the inaccuracies produced by a low GIS resolution in the available DEM (pixel width 30m) 
+Hit <Return> to see next plot: # (Popa M) and also by the phenomenon known as "state dependence" (Kabakoff R p. 315), i.e. we assume that the spot where a dam is present is 
+> # independent of the other spots of observed presence for the same terrain slope, but in reality there might be a preference of beavers for certain
+> # terrain slopes, and in the case of beavers it is the 0 to 1 slope (Pasca C).    
+> 
+>  
+> 
+> library("MASS")
+> model4 <- glm.nb(vizuini~panta)
+> summary(model4)
+
+Call:
+glm.nb(formula = vizuini ~ panta, init.theta = 1.652699294, link = log)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-2.8443  -0.7458  -0.1528   0.5779   0.9430  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  4.74121    0.35242  13.453  < 2e-16 ***
+panta       -0.26201    0.03771  -6.947 3.72e-12 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for Negative Binomial(1.6527) family taken to be 1)
+
+    Null deviance: 73.271  on 18  degrees of freedom
+Residual deviance: 17.956  on 17  degrees of freedom
+AIC: 131.65
+
+Number of Fisher Scoring iterations: 1
+
+
+              Theta:  1.653 
+          Std. Err.:  0.591 
+
+ 2 x log-likelihood:  -125.653 
+> plot(model4)
+Hit <Return> to see next plot: plot(predict(model4, type="response"), residuals(model4, type="deviance"))
+Hit <Return> to see next plot: 
+Hit <Return> to see next plot: # the glm.nb includes a second parameter theta - the clumping parameter (estimated from data to be 1.65269), and uses the log link 
+Hit <Return> to see next plot: # the glm.nb is another way to deal with overdispersion
+> 
+> # both models, the quasipoisson and negative binomial, behave more or less the same in the diagnosis plots. 
+> # the plots showing the predicted values and the observed values along the slope range for both models (nb and quasipoisson) indicate 
+> # a better fit for the nb model
+> 
+> coef(model4) # Intercept  4.7412066  panta -0.2620124 
+(Intercept)       panta 
+  4.7412066  -0.2620124 
+> exp(4.7412066) # 114.5724
+[1] 114.5724
+> exp( 4.7412066  -0.2620124*seq(0,22,1))
+ [1] 114.5723613  88.1636018  67.8420222  52.2045366  40.1714683  30.9120044  23.7868332  18.3040034  14.0849577  10.8383958   8.3401617   6.4177668
+[13]   4.9384810   3.8001685   2.9242353   2.2502034   1.7315348   1.3324186   1.0252981   0.7889684   0.6071124   0.4671739   0.3594910
+> exp(0.2620124)
+[1] 1.299543
+> 114.5723613 - 88.1636018
+[1] 26.40876
+> 88.1636018 - 67.8420222 
+[1] 20.32158
+> # Interpretation coeff. model4: for 0 slope we have about 114 beaver dams (the intercept in this case brings an important amount of information)
+> # The linear model indicates that for each unit increase in terrain slope we have a decrease in the log no. of dams of about 0.2620124.
+> # Let's test that to be sure:
+> log(114.5724)-0.2620124 # 4.479195 which is log(88.1636018), the no. of dams at 1 degree of terrain slope
+[1] 4.479195
+> log(88.1636018) - 0.2620124 # 4.217182 which is log(67.8420222), the no. of dams at 2 degrees of terrain slope
+[1] 4.217182
+> log(67.8420222) 
+[1] 4.217182
+> 
+> coef(model2) # 4.6587012  -0.2314341 
+(Intercept)       panta 
+  4.6587012  -0.2314341 
+> exp(4.6587012) # 105.499
+[1] 105.499
+> # Interpretation coeff. model2: for 0 slope we have 105.499 beaver dams.
+> # For each unit increase in terrain slope we have a decrease in the log no. of dams of about 0.2314341.
+> 
+> 
+> # 2) Plotting the results
+> 
+> #plot 1
+> pathToPlot <- "/home/roxana/poisson_regression/plot1.bmp"
+> bmp(pathToPlot, width = 500, height = 500)
+> plot(panta, vizuini, main= "Distribution of beaver dam counts along the slope range", ylab= "nr. vizuini", xlab= "panta")
+> dev.off()
+RStudioGD 
+        2 
+> 
+> #plot 2 
+> newXs <- seq(0,22,0.1)
+> newXs
+  [1]  0.0  0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9  1.0  1.1  1.2  1.3  1.4  1.5  1.6  1.7  1.8  1.9  2.0  2.1  2.2  2.3  2.4  2.5  2.6  2.7
+ [29]  2.8  2.9  3.0  3.1  3.2  3.3  3.4  3.5  3.6  3.7  3.8  3.9  4.0  4.1  4.2  4.3  4.4  4.5  4.6  4.7  4.8  4.9  5.0  5.1  5.2  5.3  5.4  5.5
+ [57]  5.6  5.7  5.8  5.9  6.0  6.1  6.2  6.3  6.4  6.5  6.6  6.7  6.8  6.9  7.0  7.1  7.2  7.3  7.4  7.5  7.6  7.7  7.8  7.9  8.0  8.1  8.2  8.3
+ [85]  8.4  8.5  8.6  8.7  8.8  8.9  9.0  9.1  9.2  9.3  9.4  9.5  9.6  9.7  9.8  9.9 10.0 10.1 10.2 10.3 10.4 10.5 10.6 10.7 10.8 10.9 11.0 11.1
+[113] 11.2 11.3 11.4 11.5 11.6 11.7 11.8 11.9 12.0 12.1 12.2 12.3 12.4 12.5 12.6 12.7 12.8 12.9 13.0 13.1 13.2 13.3 13.4 13.5 13.6 13.7 13.8 13.9
+[141] 14.0 14.1 14.2 14.3 14.4 14.5 14.6 14.7 14.8 14.9 15.0 15.1 15.2 15.3 15.4 15.5 15.6 15.7 15.8 15.9 16.0 16.1 16.2 16.3 16.4 16.5 16.6 16.7
+[169] 16.8 16.9 17.0 17.1 17.2 17.3 17.4 17.5 17.6 17.7 17.8 17.9 18.0 18.1 18.2 18.3 18.4 18.5 18.6 18.7 18.8 18.9 19.0 19.1 19.2 19.3 19.4 19.5
+[197] 19.6 19.7 19.8 19.9 20.0 20.1 20.2 20.3 20.4 20.5 20.6 20.7 20.8 20.9 21.0 21.1 21.2 21.3 21.4 21.5 21.6 21.7 21.8 21.9 22.0
+> coef(model2)
+(Intercept)       panta 
+  4.6587012  -0.2314341 
+> newLogMu <- 4.6587012 -0.2314341*newXs
+> newLogMu
+  [1]  4.65870120  4.63555779  4.61241438  4.58927097  4.56612756  4.54298415  4.51984074  4.49669733  4.47355392  4.45041051  4.42726710  4.40412369
+ [13]  4.38098028  4.35783687  4.33469346  4.31155005  4.28840664  4.26526323  4.24211982  4.21897641  4.19583300  4.17268959  4.14954618  4.12640277
+ [25]  4.10325936  4.08011595  4.05697254  4.03382913  4.01068572  3.98754231  3.96439890  3.94125549  3.91811208  3.89496867  3.87182526  3.84868185
+ [37]  3.82553844  3.80239503  3.77925162  3.75610821  3.73296480  3.70982139  3.68667798  3.66353457  3.64039116  3.61724775  3.59410434  3.57096093
+ [49]  3.54781752  3.52467411  3.50153070  3.47838729  3.45524388  3.43210047  3.40895706  3.38581365  3.36267024  3.33952683  3.31638342  3.29324001
+ [61]  3.27009660  3.24695319  3.22380978  3.20066637  3.17752296  3.15437955  3.13123614  3.10809273  3.08494932  3.06180591  3.03866250  3.01551909
+ [73]  2.99237568  2.96923227  2.94608886  2.92294545  2.89980204  2.87665863  2.85351522  2.83037181  2.80722840  2.78408499  2.76094158  2.73779817
+ [85]  2.71465476  2.69151135  2.66836794  2.64522453  2.62208112  2.59893771  2.57579430  2.55265089  2.52950748  2.50636407  2.48322066  2.46007725
+ [97]  2.43693384  2.41379043  2.39064702  2.36750361  2.34436020  2.32121679  2.29807338  2.27492997  2.25178656  2.22864315  2.20549974  2.18235633
+[109]  2.15921292  2.13606951  2.11292610  2.08978269  2.06663928  2.04349587  2.02035246  1.99720905  1.97406564  1.95092223  1.92777882  1.90463541
+[121]  1.88149200  1.85834859  1.83520518  1.81206177  1.78891836  1.76577495  1.74263154  1.71948813  1.69634472  1.67320131  1.65005790  1.62691449
+[133]  1.60377108  1.58062767  1.55748426  1.53434085  1.51119744  1.48805403  1.46491062  1.44176721  1.41862380  1.39548039  1.37233698  1.34919357
+[145]  1.32605016  1.30290675  1.27976334  1.25661993  1.23347652  1.21033311  1.18718970  1.16404629  1.14090288  1.11775947  1.09461606  1.07147265
+[157]  1.04832924  1.02518583  1.00204242  0.97889901  0.95575560  0.93261219  0.90946878  0.88632537  0.86318196  0.84003855  0.81689514  0.79375173
+[169]  0.77060832  0.74746491  0.72432150  0.70117809  0.67803468  0.65489127  0.63174786  0.60860445  0.58546104  0.56231763  0.53917422  0.51603081
+[181]  0.49288740  0.46974399  0.44660058  0.42345717  0.40031376  0.37717035  0.35402694  0.33088353  0.30774012  0.28459671  0.26145330  0.23830989
+[193]  0.21516648  0.19202307  0.16887966  0.14573625  0.12259284  0.09944943  0.07630602  0.05316261  0.03001920  0.00687579 -0.01626762 -0.03941103
+[205] -0.06255444 -0.08569785 -0.10884126 -0.13198467 -0.15512808 -0.17827149 -0.20141490 -0.22455831 -0.24770172 -0.27084513 -0.29398854 -0.31713195
+[217] -0.34027536 -0.36341877 -0.38656218 -0.40970559 -0.43284900
+> newdf <- data.frame(newXs, newLogMu)
+> plot(newdf)
+> 
+> newdf2 <- data.frame(newXs, exp(newLogMu))
+> plot(newdf2)
+> points(mydata)
+> 
+> #plot 3
+> 
+> plot(newdf)
+> points(log(vizuini))
+> 
+> #plot 4 (the negative binomial)
+> 
+> newLogMuBn <-  4.7412066  -0.2620124*newXs
+> newdfBn <- data.frame(newXs, exp(newLogMuBn))
+> plot(newdfBn)
+> points(mydata)
+> 
+> # plot 5 (the robust poisson regression)
+> coefficients(model3) # Intercept -4907.1189  panta  306.7826
+(Intercept)       panta 
+ -4907.1189    306.7826 
+> newLogMuRob <- -4907.1189 + 306.7826*newXs
+> newdfRob <- data.frame(newXs, exp(newLogMuRob))
+> plot(newdfRob)
+> points(mydata)
+> 
+> 
+> # 3) Risk analysis 
+> 
+> # using the negative binomial model and then the quasipoisson model to turn the results into probabilities of occurence along the regression curve
+> 
+> sumDams = sum(vizuini) 
+> sumDams
+[1] 496
+> 
+> vizuini
+ [1]   3  78 131 101  78  46  16  15   9   4   3   2   1   2   3   1   1   1   1
+> 
+> probDamAlongTerSlope = vizuini/sumDams
+> probDamAlongTerSlope 
+ [1] 0.006048387 0.157258065 0.264112903 0.203629032 0.157258065 0.092741935 0.032258065 0.030241935 0.018145161 0.008064516 0.006048387 0.004032258
+[13] 0.002016129 0.004032258 0.006048387 0.002016129 0.002016129 0.002016129 0.002016129
+> plot(probDamAlongTerSlope)
+> coef(model4)
+(Intercept)       panta 
+  4.7412066  -0.2620124 
+> 
+> # now, similar to model4 (the negative binomial model), log(probDamAlongTerSlope) = Intercept - beta1(vizuini)
+> # let's rerun the model with probDamAlongTerSlope to see the coefficients:
+> 
+> mydataProb = read.table("/home/roxana/poisson_regression/Poisson_data_prob.txt", header=TRUE)
+> names(mydataProb)
+[1] "No"                   "probDamAlongTerSlope" "panta"               
+> 
+> model5 = glm.nb(mydataProb$probDamAlongTerSlope ~ mydataProb$panta)
+There were 21 warnings (use warnings() to see them)
+> warnings(model5) # doesn't like lists as arguments...let's build a data frame
+Warning messages:
+1: In dpois(y, mu, log = TRUE) : non-integer x = 0.006048 
+Error in cat("1: In dpois(y, mu, log = TRUE) : non-integer x = 0.006048",  : 
+  argument 2 (type 'list') cannot be handled by 'cat'
+> # ok I guess the problem is I want a probability response which is continuous and continuous responses for probabilities are impossible
+> # because if they have to sum up to 1 it will tear the individual probabilities towards 0. or what? (ask Baruch on that)
+> 
+> summary(model5) 
+
+Call:
+glm.nb(formula = mydataProb$probDamAlongTerSlope ~ mydataProb$panta, 
+    init.theta = 39757.83702, link = log)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-0.7633  -0.3506  -0.1997   0.2046   0.8954  
+
+Coefficients:
+                 Estimate Std. Error z value Pr(>|z|)
+(Intercept)       -1.5479     1.3797  -1.122    0.262
+mydataProb$panta  -0.2314     0.2748  -0.842    0.400
+
+(Dispersion parameter for Negative Binomial(39757.84) family taken to be 1)
+
+    Null deviance: 5.8889  on 18  degrees of freedom
+Residual deviance: 4.6971  on 17  degrees of freedom
+AIC: 11.8
+
+Number of Fisher Scoring iterations: 1
+
+
+              Theta:  39758 
+          Std. Err.:  4491365 
+Warning while fitting theta: iteration limit reached 
+
+ 2 x log-likelihood:  -5.8 
+> coef(model5) # Intercept -1.5478736      mydataProb$panta -0.2314343 
+     (Intercept) mydataProb$panta 
+      -1.5478736       -0.2314343 
+> # ok now let's plot the model curve on top of the observed probabilities:
+> 
+> plot(newXs, exp(-1.5478736 -0.2314343*newXs))
+> points(probDamAlongTerSlope)
+> 
+> 
+> 
+> # 4) Conclusions
+> 
+> 
+> 
+> 
+> 
+> # 5) References: 
+> # 1. Kabacoff R I, 2015: R in action - Data analysis and graphics with R,  Second edition, Manning
+> # 2. Crawley M J, 2013: The R book, Second edition, Wiley 
+> # 3. Quinn G P, Keough M J, 2002: Experimental design and data analysis for biologists, CUP
+> # 4. R Core Team, 2017, R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna,
+> #    Austria. URL https://www.R-project.org/
+> # 5. https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/glm.nb.html (08.06.2017)
+> # 6. Venables, W N, Ripley B D, 2002: Modern Applied Statistics with S, Fourth edition, Springer
+> # 7. Wang J, Zamar R, Marazzi A, Yohai V, Salibian-Barrera M, Maronna R, Zivot E, Rocke D, Martin D, Maechler M, Konis K, (2017): 
+> #    robust: Port of the S+ "Robust Library". R package version 0.4-18, https://CRAN.R-project.org/package=robust
