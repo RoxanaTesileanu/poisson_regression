@@ -136,7 +136,14 @@ names(mydataProb)
 model5 = glm.nb(mydataProb$probDamAlongTerSlope ~ mydataProb$panta)
 warnings(model5) # doesn't like lists as arguments...let's build a data frame
 # ok I guess the problem is I want a probability response which is continuous and continuous responses for probabilities are impossible
-# because if they have to sum up to 1 it will tear the individual probabilities towards 0. 
+# because if they have to sum up to 1 it will tear the individual probabilities towards 0. or what? (ask Baruch on that)
+
+summary(model5) 
+coef(model5) # Intercept -1.5478736      mydataProb$panta -0.2314343 
+# ok now let's plot the model curve on top of the observed probabilities:
+
+plot(newXs, exp(-1.5478736 -0.2314343*newXs))
+points(probDamAlongTerSlope)
 
 
 
