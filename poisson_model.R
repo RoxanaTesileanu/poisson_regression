@@ -159,12 +159,19 @@ points(probDamAlongTerSlope)
 # the conjugate analysis of Poisson data involves a Poisson likelohood (Poisson distributed observed variable) and a Gamma prior density (with 
 # prior beliefs over the intensity parameter lambda) in order to return a posterior Gamma density over lambda.
 
-# defining the likelihood: vizuini ~ Poisson(lambdahat MLE)
+# defining the likelihood: vizuini ~ Poisson(lambdahatMLE)
 
 lambdahatMLE <- sum(vizuini)/19 # S/n
 lambdahatMLE # 26.10526
 
 # so, the likelihood density is vizuini~Poisson(26.10526)
+
+# defining the prior density: p(lambda)~Gamma(a,b)
+# from the expertise of our technical stuff (Pasca C), it is assumed that the prior average count a/b=0.5, 
+# i.e. the beaver dams occur on average at slope 0.5. this returns a Gamma prior of Gamma(9.5, 19)
+
+# so, the prior density is p(lambda) ~ Gamma(9.5, 19)
+
 
 
 # 5) Conclusions
