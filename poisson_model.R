@@ -183,6 +183,12 @@ bAsterisk = 19 + 19
 bAsterisk # 38
 
 # so, our posterior density is p(lambda|vizuini)~Gamma(505.5, 38)
+# now, I'll use this posterior density to find out the posterior predictive mass function (which is negative binomial) to be able to 
+# make predictions on future dam counts along the terrain slope range
+
+# b) posterior predictive mass function for the Poisson-Gamma model
+
+
 
 
 # 5) Conclusions
