@@ -159,9 +159,12 @@ points(probDamAlongTerSlope)
 # the conjugate analysis of Poisson data involves a Poisson likelohood (Poisson distributed observed variable) and a Gamma prior density (with 
 # prior beliefs over the intensity parameter lambda) in order to return a posterior Gamma density over lambda.
 
+# defining the likelihood: vizuini ~ Poisson(lambdahat MLE)
 
+lambdahatMLE <- sum(vizuini)/19 # S/n
+lambdahatMLE # 26.10526
 
-
+# so, the likelihood density is vizuini~Poisson(26.10526)
 
 
 # 5) Conclusions
