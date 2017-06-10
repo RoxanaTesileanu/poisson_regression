@@ -146,13 +146,14 @@ plot(newXs, exp(-1.5478736 -0.2314343*newXs))
 points(probDamAlongTerSlope)
 
 # maybe a Bayesian analysis would be good with a conjugate Poisson-Gamma model given the inputs of the technical stuff
-# on the beaver preference for 0 to 1 terrain slope and the results of the logistic regression modelling the occurrence of
+# on the beaver preference for 0 to 1 terrain slope and the results of the logistic regression indocating a high probability of occurrence of
 # beaver dams at water velocities close to 0 (Tesileanu 2016).
 
 
-# 4) Bayesian analysis for Poisson count data and conjugate Gamma prior (with negative binomial posterior density)
+# 4) Bayesian analysis for Poisson count data and conjugate Gamma prior (with negative binomial predictive mass function)
 
-
+# a) estimate the intensity parameter lambda: conjugate analysis of Poisson data (Poisson-Gamma model)   
+# b) use the Gamma-Poisson model for predictive purposes: predictive mass function for Poisson count data and conjugate Gamma prior
 
 
 
