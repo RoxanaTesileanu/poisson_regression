@@ -201,6 +201,17 @@ nbTheta # 0.974359
 
 # examine the results with some plots:
 
+bayesXs = seq(0, 22, 1)
+
+plot(dpois(bayesXs, lambdahatMLE)) # Poisson likelihood
+plot(bayesXs, dgamma(bayesXs, 9.5, 19)) # prior Gamma
+plot(bayesXs, dgamma(bayesXs, 505.5, 38)) # posterior Gamma
+plot(bayesXs, dnbinom(bayesXs, 505.5, 0.974359)) # posterior negative binomial predictive mass function
+# it seams the prior beliefs were updated by the observed data but the difference between the two distributions is still very high and 
+# needs another update in the form of new observed data in order to make inferences possible. The error in the observed data needs to be 
+# reduced.  
+
+
 
 # 5) Conclusions
 
@@ -211,13 +222,15 @@ nbTheta # 0.974359
 # 5) References: 
 # 1. Kabacoff R I, 2015: R in action - Data analysis and graphics with R,  Second edition, Manning
 # 2. Crawley M J, 2013: The R book, Second edition, Wiley 
-# 3. Quinn G P, Keough M J, 2002: Experimental design and data analysis for biologists, CUP
-# 4. R Core Team, 2017, R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna,
+# 3. Jackman S, 2009: Bayesian analysis for the social sciences, Wiley 
+# 4. Quinn G P, Keough M J, 2002: Experimental design and data analysis for biologists, CUP
+# 5. R Core Team, 2017, R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna,
 #    Austria. URL https://www.R-project.org/
-# 5. https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/glm.nb.html (08.06.2017)
-# 6. Tesileanu R, 2016: The occurrence of beaver dams in relation to features of the water stream and vegetation characterizing the area,
+# 6. https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/glm.nb.html (08.06.2017)
+# 7. Tesileanu R, 2016: The occurrence of beaver dams in relation to features of the water stream and vegetation characterizing the area,
 #    Technical Report INCDS 
-# 7. Venables, W N, Ripley B D, 2002: Modern Applied Statistics with S, Fourth edition, Springer
-# 8. Wang J, Zamar R, Marazzi A, Yohai V, Salibian-Barrera M, Maronna R, Zivot E, Rocke D, Martin D, Maechler M, Konis K, (2017): 
+# 8. Venables, W N, Ripley B D, 2002: Modern Applied Statistics with S, Fourth edition, Springer
+# 9. Wang J, Zamar R, Marazzi A, Yohai V, Salibian-Barrera M, Maronna R, Zivot E, Rocke D, Martin D, Maechler M, Konis K, (2017): 
 #    robust: Port of the S+ "Robust Library". R package version 0.4-18, https://CRAN.R-project.org/package=robust
+# 10. http://www.statmethods.net/advgraphs/probability.html (10.06.2017)
 
