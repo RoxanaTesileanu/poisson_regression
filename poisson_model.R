@@ -172,6 +172,17 @@ lambdahatMLE # 26.10526
 
 # so, the prior density is p(lambda) ~ Gamma(9.5, 19)
 
+# defining the posterior density: p(lambda|vizuini)~Gamma(a*, b*)
+# where a* = S+a and b* = b+n
+
+sumVizuini= sum(vizuini)
+sumVizuini
+aAsterisk = sumVizuini + 9.5
+aAsterisk # 505.5
+bAsterisk = 19 + 19 
+bAsterisk # 38
+
+# so, our posterior density is p(lambda|vizuini)~Gamma(505.5, 38)
 
 
 # 5) Conclusions
