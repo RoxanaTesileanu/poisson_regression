@@ -187,6 +187,12 @@ bAsterisk # 38
 # make predictions on future dam counts along the terrain slope range
 
 # b) posterior predictive mass function for the Poisson-Gamma model
+# If y is Poisson distributed count variable with prior/posterior beliefs over lambda represented with a Gamma density, 
+# then the predictive mass function for a future observation y_future, p(y_future, y), is a negative binomial density.
+# In other words, the success probability theta of y_future given y is given by a negative binomial distribution with the parameters theta and a 
+# (the success probability theta and the success count a)
+
+# now, using the prior over lambda as being p(lambda)~Gamma(9.5, 19) and the posterior p(lambda|vizuini)~Gamma(505.5, 38), the 
 
 
 
