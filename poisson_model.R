@@ -192,9 +192,14 @@ bAsterisk # 38
 # In other words, the success probability theta of y_future given y is given by a negative binomial distribution with the parameters theta and a 
 # (the success probability theta and the success count a)
 
+nbTheta = 1 - 1/(bAsterisk +1)
+nbTheta # 0.974359
+
+
 # now, using the prior over lambda as being p(lambda)~Gamma(9.5, 19) and the posterior p(lambda|vizuini)~Gamma(505.5, 38), the 
+# p(y_future, y) ~ NBinomial(a, theta) is p(future_vizuini, vizuini)~NBinimial(505.5, 0.974359) -using the posterior Gamma density
 
-
+# examine the results with some plots:
 
 
 # 5) Conclusions
