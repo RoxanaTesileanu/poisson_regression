@@ -207,10 +207,16 @@ plot(dpois(bayesXs, lambdahatMLE)) # Poisson likelihood
 plot(bayesXs, dgamma(bayesXs, 9.5, 19)) # prior Gamma
 plot(bayesXs, dgamma(bayesXs, 505.5, 38)) # posterior Gamma
 plot(bayesXs, dnbinom(bayesXs, 505.5, 0.974359)) # posterior negative binomial predictive mass function
-# it seams the prior beliefs were updated by the observed data but the difference between the two distributions is still very high and 
-# needs another update in the form of new observed data in order to make inferences possible. The error in the observed data needs to be 
-# reduced.  
 
+# it seams the prior beliefs were updated by the observed data but the difference between the two distributions is still very high and 
+# needs another update in the form of new observed data in order to make predictive inferences possible. 
+
+# at this time I've used the conjugacy property of the models. 
+# because the data are not ideally distributed (the fitted empirical probability distrib. obtained using the glm.nb function is actually
+# as its name suggests a negative binomial one), the overdispersion is present. Overdispersion is a phenomenon with many sources: 
+# errors in the observed variables (low resolution of the DEM) or unexplained variation due to additional variables not included in the model 
+# (i.e. vegetation cover). Future research should aim at generating a predictive mass function for the counts along the terrain slope range. 
+# So, it is important to reduce these two distortion sources in the future, to be able to exploit the Poisson-Gamma model for predictive purposes.
 
 
 # 5) Conclusions
