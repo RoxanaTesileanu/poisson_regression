@@ -153,7 +153,14 @@ points(probDamAlongTerSlope)
 # 4) Bayesian analysis for Poisson count data and conjugate Gamma prior (with negative binomial predictive mass function)
 
 # a) estimate the intensity parameter lambda: conjugate analysis of Poisson data (Poisson-Gamma model)   
-# b) use the Gamma-Poisson model for predictive purposes: predictive mass function for Poisson count data and conjugate Gamma prior
+# b) use the Poisson-Gamma model for predictive purposes: predictive mass function for Poisson count data and conjugate Gamma prior
+
+# a) the Poisson-Gamma model
+# the conjugate analysis of Poisson data involves a Poisson likelohood (Poisson distributed observed variable) and a Gamma prior density (with 
+# prior beliefs over the intensity parameter lambda) in order to return a posterior Gamma density over lambda.
+
+
+
 
 
 
