@@ -34,6 +34,30 @@ Plots: the likelihood, prior and posterior densities
 
 b) Posterior predictive mass function for the Poisson-Gamma model
 
+The posterior predictive mass function for a Poisson distributed count variable with prior/posterior beliefs over lambda represented by a Gamma density is a negative binomial distribution characterized by theta (the success probability) and a parameter a (the success count) (Jackman 2009).
+
+Using the Bayes Rule, the obtained predictive mass function is: p(future_beaver_dams, beaver_dams)~NB(505.5, 0.974359). 
+
+Because the overdispersion in the observed data, there is a strong difference between the posterior predictive mass function and the prior density. In  order to make applicable the results, the sources of overdispersion need to be addressed. Overdispersion is a phenomenon with many sources, but in this case, the errors might lie in the way the observed variables were measured (low resolution of the DEM) or in the unexplained variation due to additional variables not included in the model (i.e. vegetation cover). Future research should aim at generating a viable predictive mass function for the counts along the terrain slope range. So, it is important to reduce these two data-distorting sources in the future to be able to exploit the Poisson-Gamma model for predictive purposes. 
+
+
+
+4) References
+1. Kabacoff R I, 2015: R in action - Data analysis and graphics with R,  Second edition, Manning
+2. Crawley M J, 2013: The R book, Second edition, Wiley 
+3. Jackman S, 2009: Bayesian analysis for the social sciences, Wiley 
+4. Quinn G P, Keough M J, 2002: Experimental design and data analysis for biologists, CUP
+5. R Core Team, 2017, R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https    ://www.R-project.org/
+6. https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/glm.nb.html (08.06.2017)
+7. Tesileanu R, 2016: The occurrence of beaver dams in relation to features of the water stream and vegetation characterizing the area,
+   Technical Report INCDS 
+8. Venables, W N, Ripley B D, 2002: Modern Applied Statistics with S, Fourth edition, Springer
+9. Wang J, Zamar R, Marazzi A, Yohai V, Salibian-Barrera M, Maronna R, Zivot E, Rocke D, Martin D, Maechler M, Konis K, (2017): 
+   robust: Port of the S+ "Robust Library". R package version 0.4-18, https://CRAN.R-project.org/package=robust
+10. http://www.statmethods.net/advgraphs/probability.html (10.06.2017)
+
+
+
 
 
 
