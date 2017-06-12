@@ -1,5 +1,6 @@
 Report on the statistical analysis investigating the relationship between the terrain slope and the observed counts of beaver dams along a slope range
 
+
 1) Regression analysis
 
 In ecology we often wish to model a response variable that is a count variable. Counts are usually Poisson distributed, which implies that the model errors are not approximately Gaussian distributed, making the use of linear models impossible (Kabacoff 2015, Quinn and Keough 2002, Wilkinson 2017).
@@ -58,6 +59,6 @@ Because the overdispersion in the observed data, there is a strong difference be
 
 
 
-
+Author: Roxana Tesileanu (roxana.te@web.de) INCDS Romania
 
 
