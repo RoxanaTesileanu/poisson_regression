@@ -20,10 +20,20 @@ Interpretation of the regression coefficients for the quasipoisson model: for 0 
 Similar to modelling the counts of beaver dams along a terrain slope range, another negative binomial model was fitted, this time using as response variable the observed probabilities of occurrence of beaver dams along a terrain slope range. The observed probability distribution of the occurrence of beaver dams along the terrain slope and the fitted probability distribution are presented in the following plot:
 
 Plot:  Fitted and observed probability distribution of the beaver dam counts along the terrain slope range
+Table: coefficients, se, P-values of the fitted model
 
 3) Using the Poisson-Gamma model to predict future counts 
 
-In order to obtain a posterior predictive mass function for the prediction of future occurrences of beaver dams along the terrain slope, a Poisson-Gamma model was fitted.  The Poisson-Gamma model, also known as the conjugate analysis of Poisson data, consists of: a conjugate Gamma prior density (representing the prior beliefs over the intensity parameter lambda), a Poisson likelihood (Poisson distributed observed variable) and a Gamma posterior density (updating our beliefs over lambda using the Bayes Rule).
+a) The Poisson-Gamma model
+
+In order to obtain a posterior predictive mass function for the prediction of future occurrences of beaver dams along the terrain slope, a Poisson-Gamma model was fitted.  The Poisson-Gamma model, also known as the conjugate analysis of Poisson data, consists of: a conjugate Gamma prior density (representing the prior beliefs over the intensity parameter lambda), a Poisson likelihood (Poisson distributed observed variable) and a Gamma posterior density (updating our beliefs over lambda via the Bayes Rule) (Jackman 2009). According to the observed data the lambdahatMLE (Maximum Likelihood Estimation of lambda, the intensity parameter of the Poisson distribution) is 26.105, thus the likelihood is: beaver_dams ~ Poisson(26.105). From the expertise of our technical stuff (Pasca C), it is assumed that the prior average count a/b=0.5, returnining a prior Gamma(a,b) density: p(lambda)~Gamma(9.5, 19). This defines the following posterior density: p (lambda|beaver_dams)~Gamma(505.5, 38). The exact calculations of the parameters of the probability densities can be found in the R script of the present analysis. 
+
+The previously obtained posterior density was further used to find out the posterior predictive mass function, which is a negative binomial density, in order to make predictions on future dam counts along the terrain slope range. 
+
+Plots: the likelihood, prior and posterior densities
+
+b) Posterior predictive mass function for the Poisson-Gamma model
+
 
 
 
