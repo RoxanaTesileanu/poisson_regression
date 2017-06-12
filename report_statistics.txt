@@ -17,5 +17,9 @@ Interpretation of the regression coefficients for the quasipoisson model: for 0 
 
 2) Fitted and observed probability distribution of the beaver dam counts along the terrain slope range
 
-Similar to modelling the counts of beaver dams along a terrain slope range, another negative binomial model was fitted, this time using as response variable the observed probabilities of occurrence of beaver dams along a terrain slope range. 
+Similar to modelling the counts of beaver dams along a terrain slope range, another negative binomial model was fitted, this time using as response variable the observed probabilities of occurrence of beaver dams along a terrain slope range. The observed probability distribution of the occurrence of beaver dams along the terrain slope and the fitted probability distribution are presented in the following plot:
+
+Plot:  Fitted and observed probability distribution of the beaver dam counts along the terrain slope range
+
+3) Using the Poisson-Gamma model to predict future counts 
 
