@@ -1,0 +1,7 @@
+Report on the statistical analysis investigating the relationship between the terrain slope and the observed counts of beaver dams along a slope range
+
+1) Regression analysis
+
+In ecology we often wish to model a response variable that is a count variable. Counts are usually Poisson distributed, which implies that the model errors are not approximately Gaussian distributed, making the use of linear models impossible (Kabacoff 2015, Quinn and Keough 2002, Wilkinson 2017).
+
+Generalized linear models (GLMs) extend the linear modelling theory to cover response variables of the exponential family (in addition to the Gaussian) (Kabacoff 2015, Wilkinson 2017). Common applications of GLMs are the logistic regression (where the response variable is binary),the Poisson regression (where the response variable are counts) and the log-linear models (where the response variable is categorical) (Quinn and Keough 2002). For the dataset on the observed counts   
