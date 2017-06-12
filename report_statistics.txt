@@ -11,4 +11,11 @@ The quasipoisson model and the negative binomial model behave both more or less 
 Table 1: coefficients of the models, standard errors of coeff., P-values
 Plots: plots showing the predicted values and the observed values along the slope range for both models (quasipoisson and negative binomial)
 
-Interpretation of the regression coefficients for the negative binomial model: for 0 terrain slope we have about 114 beaver dams 
+Interpretation of the regression coefficients for the negative binomial model: for 0 terrain slope we have about 114 beaver dams (the intercept in this case brings an important amount of information). The GLM indicates that for each unit increase in terrain slope we have a decrease in the log number of dams of about 0.262. 
+
+Interpretation of the regression coefficients for the quasipoisson model: for 0 terrain slope we have about 105.5 beaver dams (again the intercept brings a high amout of information). For each unit increase in terrain slope we have a decrease in the log number of dams of about 0.231.
+
+2) Fitted and observed probability distribution of the beaver dam counts along the terrain slope range
+
+Similar to modelling the counts of beaver dams along a terrain slope range, another negative binomial model was fitted, this time using as response variable the observed probabilities of occurrence of beaver dams along a terrain slope range. 
+
