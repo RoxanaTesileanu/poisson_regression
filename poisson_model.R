@@ -207,6 +207,10 @@ plot(dpois(bayesXs, lambdahatMLE)) # Poisson likelihood
 plot(bayesXs, dgamma(bayesXs, 9.5, 19)) # prior Gamma
 plot(bayesXs, dgamma(bayesXs, 505.5, 38)) # posterior Gamma
 plot(bayesXs, dnbinom(bayesXs, 505.5, 0.974359)) # posterior negative binomial predictive mass function
+plot(bayesXs,dnbinom(bayesXs, 505.5, 0.974359))
+
+
+
 
 # it seams the prior beliefs were updated by the observed data but the difference between the two distributions is still very high and 
 # needs another update in the form of new observed data in order to make predictive inferences possible. 
