@@ -23,3 +23,7 @@ Plot:  Fitted and observed probability distribution of the beaver dam counts alo
 
 3) Using the Poisson-Gamma model to predict future counts 
 
+In order to obtain a posterior predictive mass function for the prediction of future occurrences of beaver dams along the terrain slope, a Poisson-Gamma model was fitted.  The Poisson-Gamma model, also known as the conjugate analysis of Poisson data, consists of: a conjugate Gamma prior density (representing the prior beliefs over the intensity parameter lambda), a Poisson likelihood (Poisson distributed observed variable) and a Gamma posterior density (updating our beliefs over lambda using the Bayes Rule).
+
+
+
